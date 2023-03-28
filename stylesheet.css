@@ -5,6 +5,9 @@ body {
     padding:0;
     font-family:Arial, Helvetica, sans-serif;
 }
+a {
+    text-decoration:none;
+}
 
 
 .login-error {
@@ -39,7 +42,7 @@ body {
     text-decoration:none;
 }
 .navbar li:hover, .navbar li a:hover {
-    background-color:#5a5a5a;
+    color:lightblue;
     border-radius:5px;
 }
 .company-link {
@@ -47,6 +50,9 @@ body {
     color:lightblue;
     padding:14px 16px;
     font-size:20px;
+}
+.company-link:hover {
+    color:rgb(113, 151, 164);
 }
 .welcome {
     float:right;
@@ -57,9 +63,12 @@ body {
     font-size:18px;
 }
 #logout {
-    color:red;
+    color:rgb(175, 0, 0);
     text-decoration:none;
     display:block;
+}
+#logout:hover {
+    color:red;
 }
 
 
@@ -105,10 +114,12 @@ body {
     width:100%;
     background-color:#333;
     color:white;
+    text-align:center;
     font-weight:bold;
     font-size:20px;
     display:inline-block;
-    padding:30px;
+    padding:15px;
+    margin-top:1%;
 }
 .info-row {
     background-color:white;
@@ -148,7 +159,7 @@ body {
     border-radius:5px;
     margin:15px;
     font-size:15px;
-    width:20%;
+    min-width:20%;
     padding:5px;
     display:inline-block;
 }
@@ -163,6 +174,14 @@ body {
     background-color:#5a5a5a;
     cursor:pointer;
 }
+#delete {
+    background-color:darkred;
+    border:none;
+}
+#delete:hover {
+    background-color:red;
+}
+
 .info-row textarea {
     display:inline-block;
     width:78%;
@@ -180,6 +199,45 @@ body {
     font-size:15px;
     text-align:left;
     margin:10px auto;
+}
+.info button {
+    display:inline-block;
+    background-color:#333;
+    font-weight:bold;
+    font-size:18px;
+    padding:10px;
+    width:90%;
+    color:white;
+    border:none;
+    border-radius:15px;
+}
+.info button:hover {
+    cursor:pointer;
+    color:lightblue;
+}
+.info-display {
+    display:inline-block;
+    background-color:#5a5a5a;
+    margin:10px auto;
+    margin-right:0.5%;
+    max-width:49.5%;
+    min-height:120px;
+    color:rgb(238, 238, 238);
+    border-bottom:5px solid #333;
+    overflow:hidden;
+}
+.info-display:hover {
+    background-color:#4d4d4d;
+    cursor:default;
+}
+.info-display span {
+    display:inline-block;
+    margin:8px 15px;
+}
+.info-display-title {
+    color:white;
+    font-weight:bold;
+    font-size:20px;
 }
 
 

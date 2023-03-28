@@ -32,17 +32,25 @@
             <!-- get all news posts from the database -->
             <?php
                 include "connection.php";
-                $getFAQS = "SELECT * FROM Faq;";
-                $FAQSResult = mysqli_query($dbconnect, $getFAQS);
+                $getNews = "SELECT * FROM News;";
+                $NewsResult = mysqli_query($dbconnect, $getNews);
             ?>
             
-            <div class="info" style="min-width:70%;background-color:#333;padding:15px;">
-                <div class="info-title">FAQs:</div>
+            <div class="info" style="min-width:70%;">
+                <div class="info-title">All news:</div>
                 <?php
-                    while($row = mysqli_fetch_array($FAQSResult)) {
+                    while($row = mysqli_fetch_array($NewsResult)) {
                         echo "<div class='info-display'>";
-                        echo "<span class='info-display-title'>" . strtoupper($row['question']) . "</span><br>";
-                        echo "<span class='info-display-title'>" . $row['answer'] . "</span>";
+                        echo "<span class='info-display-title'>" . strtoupper($row['title']) . "</span>";
+                        if($row['category'] == 'Important') {
+                            echo "<span style='margin:0 auto;color:red'>" . strtoupper($row['category']) . " </span>";
+                        } else if($row['category'] == 'Announcement') {
+                            echo "<span style='margin:0 auto;color:orange'>" . strtoupper($row['category']) . " </span>";
+                        } else {
+                            echo "<span style='margin:0 auto;'>" . $row['category'] . " </span>";
+                        }
+                        echo "<span style='float:right'>" . $row['dateCreated'] . " </span><br>";
+                        echo "<span>" . $row['message'] . " </span>";
                         echo "</div>";
                     }
                 ?>
