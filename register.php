@@ -136,7 +136,7 @@
                 // if error is still false then insert the data into the database
                 if(!$error) {
                     if(mysqli_query($dbconnect, $query)) {
-                        echo "registration successful!";
+                        echo "<p class='confirmation'>ACCOUNT SUCCESSFULLY CREATED!</p>";
                     } else {
                         // to view errors echo "something" .mysqli_error($dbconnect);
                     }

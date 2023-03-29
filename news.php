@@ -18,7 +18,7 @@
                 <span><a href="index.php" class="company-link">FDM<span style="font-size:10px;">&#174;</span></a></span>
                 <span class="welcome"><?php echo $_SESSION['Username']?> (<?php echo $_SESSION['Name'] ?>)</span>
                 <li><a href="account.php">My Account</a></li>
-                <li><a href="messages.php">Messages</a></li>
+                <li><a href="chat.php">My Chats</a></li>
                 <li><a href="news.php">News</a></li>
                 <!-- display admin link -->
                 <?php

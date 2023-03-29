@@ -51,6 +51,10 @@
                 $("#document-delete-details").hide();
             });
 
+            $(document).ready(function(){
+                $("#messages-details").hide();
+            });
+
             // toggle info divs
 
             $(document).ready(function(){
@@ -112,6 +116,12 @@
                 $("#document-delete-details").slideToggle(500);
             });
             });
+
+            $(document).ready(function(){
+            $("#messages-button").click(function(){
+                $("#messages-details").slideToggle(500);
+            });
+            });
         </script>
     </head>
     <body>
@@ -153,7 +163,7 @@
 
                     if(!$error) {
                         if(mysqli_query($dbconnect, $submitNewsQuery)) {
-                            echo "News post successfully submitted!";
+                            echo "<p class='confirmation'>NEWS POST SUCCESSFULLY CREATED!</p>";
                         }
                     }
                 }
@@ -174,7 +184,7 @@
 
                     if(!$error) {
                         if(mysqli_query($dbconnect, $deletePost)) {
-                            echo "Post deleted successfully!";
+                            echo "<p class='confirmation'>NEWS POST SUCCESSFULLY DELETED!</p>";
                         }
                     }
                 }
@@ -206,7 +216,7 @@
 
                     if(!$error) {
                         if(mysqli_query($dbconnect, $insertFAQ)) {
-                            echo "FAQ successfully submitted!";
+                            echo "<p class='confirmation'>FAQ SUCCESSFULLY CREATED!</p>";
                         }
                     }
                 }
@@ -227,7 +237,7 @@
 
                     if(!$error) {
                         if(mysqli_query($dbconnect, $deleteFAQ)) {
-                            echo "FAQ successfully deleted!";
+                            echo "<p class='confirmation'>FAQ SUCCESSFULLY DELETED!</p>";
                         }
                     }
                 }
@@ -252,7 +262,7 @@
                     
                     if(!$error) {
                         if(mysqli_query($dbconnect, $updateRequest)) {
-                            echo "Request successfully updated!";
+                            echo "<p class='confirmation'>EMPLOYEE REQUEST SUCCESSFULLY UPDATED!</p>";
                         }
                     }
                 }
@@ -278,7 +288,7 @@
 
                     if(!$error) {
                         if(mysqli_query($dbconnect, $updateTimeRequest)) {
-                            echo "Time off request successfully updated!";
+                            echo "<p class='confirmation'>EMPLOYEE TIME OFF REQUEST SUCCESSFULLY UPDATED!</p>";
                         }
                     }
                 }
@@ -320,7 +330,7 @@
 
                     if(!$error) {
                         if(mysqli_query($dbconnect, $insertReport)) {
-                            echo "Report successfully submitted!";
+                            echo "<p class='confirmation'>ISSUE REPORT SUCCESSFULLY CREATED!</p>";
                         }
                     }
 
@@ -348,7 +358,8 @@
 
                     if(!$error) {
                         if(mysqli_query($dbconnect, $updateReport)) {
-                            echo "Report successfully updated!";
+                            echo "<p class='confirmation'>ISSUE REPORT SUCESSFULLY UPDATED!</p>";
+
                         }
                     }
                     
@@ -382,7 +393,7 @@
 
                     if(!$error) {
                         if(mysqli_query($dbconnect, $insertDocument)) {
-                            echo "Document successfully added!";
+                            echo "<p class='confirmation'>DOCUMENT SUCCESSFULLY ADDED!</p>";
                         }
                     }
                 }
@@ -403,13 +414,12 @@
 
                     if(!$error) {
                         if(mysqli_query($dbconnect, $deleteDocument)) {
-                            echo "Document successfully deleted!";
+                            echo "<p class='confirmation'>DOCUMENT SUCCESSFULLY DELETED!</p>";
                         }
                     }
 
                 }
             ?>
-
 
 
             <div class="info">
@@ -715,6 +725,25 @@
                     <input type="submit" value="Delete DOCUMENT" name="deleteDocument" id="delete">
                 </div>
                 </form>
+            
+            <!-- display messages sent, and by who -->
+                <?php
+                    $getMessages = "SELECT chat_id, message_sender_id, message_content, E.firstname AS messager_firstname, E.lastname AS messager_lastname FROM ChatMessage C, Employee E WHERE message_sender_id = E.employee_id;";
+                    $getMessagesResult = mysqli_query($dbconnect, $getMessages);
+                ?>
+                    <div class="info-title"><button id="messages-button">Employee Messages:</button></div>
+                    <div class="info-row" id="messages-details">
+                    <?php
+                        while($row = mysqli_fetch_array($getMessagesResult)) {
+                            echo "<div class='row'>";
+                            echo "<b>Chat ID:</b> " . ($row['chat_id']) . "<br>";
+                            echo "<b>Sender:</b> " . ucfirst($row['messager_firstname']) . " " . ucfirst($row['messager_lastname']) . "<hr>";
+                            echo "<b>Content of message:</b> " . $row['message_content'] . "<br>";
+                            echo "</div>";
+                        }
+
+                    ?>      
+                    </div>
             </div>
 
 
@@ -722,9 +751,3 @@
     <?php include "footer.php"; ?>
 </body>
 </html>
-
-<!-- display all feedback -->
-<!-- optional: view messages sent by employees -->
-<!-- optional: update days available to book for time off requests -->
-<!-- optional: view all approved requests -->
-<!-- optional: view all reports -->

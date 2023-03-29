@@ -239,6 +239,51 @@ a {
     font-weight:bold;
     font-size:20px;
 }
+.info-chat-title {
+    display:inline-block;
+    background-color:#333;
+    text-align:right;
+    color:white;
+    padding:10px;
+    min-width:60%;
+    max-width:80%;
+    margin:10px auto;
+    margin-bottom:0px;
+}
+.info-chat-container {
+    background-color:#5a5a5a;
+    min-width:60%;
+    max-width:80%;
+    display:inline-block;
+    padding:10px;
+    margin:0px auto;
+}
+.info-chat-message {
+    font-weight:normal;
+    float:left;
+    color:white;
+}
+#chat-reply {
+    background-color:#333;
+    border:none;
+    color:white;
+    width:80%;
+    height:50px;
+    padding:20px;
+}
+#chat-reply:hover {
+    background-color:#4d4d4d;
+}
+.confirmation {
+    background-color:darkred;
+    width:59%;
+    margin:10px auto;
+    font-size:20px;
+    padding:10px;
+    text-align:center;
+    font-weight:bold;
+    color:white;
+}
 
 
 
