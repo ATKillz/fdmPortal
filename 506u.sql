@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 28, 2023 at 06:23 AM
+-- Generation Time: Mar 29, 2023 at 11:28 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -46,6 +46,48 @@ INSERT INTO `AvailableDays` (`dayAvailable`) VALUES
 ('2023-04-04'),
 ('2023-04-05'),
 ('2023-04-06');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ChatMessage`
+--
+
+CREATE TABLE `ChatMessage` (
+  `message_id` int(11) NOT NULL,
+  `chat_id` int(11) DEFAULT NULL,
+  `message_sender_id` int(11) DEFAULT NULL,
+  `message_content` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `ChatMessage`
+--
+
+INSERT INTO `ChatMessage` (`message_id`, `chat_id`, `message_sender_id`, `message_content`) VALUES
+(4, 5, 1, 'hello'),
+(5, 6, 1, 'helllllooo'),
+(6, 5, 1, 'asdasdasdas'),
+(7, 6, 1, 'asdasdasdasdasdasdsaadsadasdasdsa'),
+(8, 5, 1, 'ayyy lmaoooooooooooooooooo'),
+(9, 6, 3, 'yoooooooooooooo'),
+(10, 6, 3, 'reaoycdh7sao8d7c6as'),
+(11, 5, 1, 'sdcwqe23ceawcd'),
+(12, 5, 1, 'sdcwqe23ceawcd'),
+(13, 5, 1, 'sdcwqe23ceawcd'),
+(14, 5, 1, 'sdcwqe23ceawcd'),
+(15, 5, 1, 'sdcwqe23ceawcd'),
+(16, 5, 1, 'sdcwqe23ceawcd'),
+(17, 6, 1, 'asdasdas'),
+(18, 6, 1, 'asdasdas'),
+(19, 6, 1, 'asdasdas'),
+(20, 6, 1, 'asdasdas'),
+(21, 6, 1, 'asdasdas'),
+(22, 6, 1, 'asdasdas'),
+(23, 6, 1, 'asdasdas'),
+(24, 6, 1, 'asdasdas'),
+(25, 6, 1, 'asdasdas'),
+(26, 6, 1, 'asdasdas');
 
 -- --------------------------------------------------------
 
@@ -222,7 +264,7 @@ CREATE TABLE `Request` (
 --
 
 INSERT INTO `Request` (`request_id`, `employee_id`, `message`, `type`, `dateRequested`, `status`) VALUES
-(1, 1, 'hello testing testing testing testing testing testing', 'personal', '2023-03-24 07:05:30', 'requested'),
+(1, 1, 'hello testing testing testing testing testing testing', 'personal', '2023-03-24 07:05:30', 'approved'),
 (2, 1, 'hello', 'personal', '2023-03-24 07:07:21', 'approved'),
 (3, 1, 'test request 2', 'personal', '2023-03-28 02:36:37', 'rejected');
 
@@ -289,9 +331,37 @@ INSERT INTO `TrainingTask` (`task_id`, `title`, `description`, `category`, `dura
 (1, 'Test', 'Just a test', 'Beginner', 10),
 (2, 'Another Test', 'Just another test', 'Intermediate', 20);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `UserChat`
+--
+
+CREATE TABLE `UserChat` (
+  `chat_id` int(11) NOT NULL,
+  `dateCreated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `user_initial_id` int(11) DEFAULT NULL,
+  `user_recepient_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `UserChat`
+--
+
+INSERT INTO `UserChat` (`chat_id`, `dateCreated`, `user_initial_id`, `user_recepient_id`) VALUES
+(5, '2023-03-29 06:16:24', 1, 2),
+(6, '2023-03-29 07:05:43', 1, 3);
+
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `ChatMessage`
+--
+ALTER TABLE `ChatMessage`
+  ADD PRIMARY KEY (`message_id`),
+  ADD KEY `chat_id` (`chat_id`);
 
 --
 -- Indexes for table `Documents`
@@ -358,8 +428,22 @@ ALTER TABLE `TrainingTask`
   ADD PRIMARY KEY (`task_id`);
 
 --
+-- Indexes for table `UserChat`
+--
+ALTER TABLE `UserChat`
+  ADD PRIMARY KEY (`chat_id`),
+  ADD KEY `user_initial_id` (`user_initial_id`),
+  ADD KEY `user_recepient_id` (`user_recepient_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `ChatMessage`
+--
+ALTER TABLE `ChatMessage`
+  MODIFY `message_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `Documents`
@@ -389,7 +473,7 @@ ALTER TABLE `IssueReport`
 -- AUTO_INCREMENT for table `News`
 --
 ALTER TABLE `News`
-  MODIFY `news_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `news_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `Payslip`
@@ -416,8 +500,20 @@ ALTER TABLE `TrainingTask`
   MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `UserChat`
+--
+ALTER TABLE `UserChat`
+  MODIFY `chat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `ChatMessage`
+--
+ALTER TABLE `ChatMessage`
+  ADD CONSTRAINT `chatmessage_ibfk_1` FOREIGN KEY (`chat_id`) REFERENCES `UserChat` (`chat_id`);
 
 --
 -- Constraints for table `Payslip`
@@ -443,6 +539,13 @@ ALTER TABLE `TimeOff`
 ALTER TABLE `Trainee`
   ADD CONSTRAINT `trainee_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `TrainingTask` (`task_id`),
   ADD CONSTRAINT `trainee_ibfk_2` FOREIGN KEY (`trainee_id`) REFERENCES `Employee` (`employee_id`);
+
+--
+-- Constraints for table `UserChat`
+--
+ALTER TABLE `UserChat`
+  ADD CONSTRAINT `userchat_ibfk_1` FOREIGN KEY (`user_initial_id`) REFERENCES `Employee` (`employee_id`),
+  ADD CONSTRAINT `userchat_ibfk_2` FOREIGN KEY (`user_recepient_id`) REFERENCES `Employee` (`employee_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
